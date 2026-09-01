@@ -20,8 +20,11 @@ const Home = () => {
   const { user } = useAuth();
   const { recentlyPlayed, playQueue } = usePlayer();
   const [tracks, setTracks] = useState([]);
+<<<<<<< HEAD
   const [recommended, setRecommended] = useState([]);
   const [recommendBasis, setRecommendBasis] = useState("trending");
+=======
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
   const [genres, setGenres] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -29,6 +32,7 @@ const Home = () => {
     Promise.all([
       api.get("/tracks?limit=24"),
       api.get("/tracks/genres/list"),
+<<<<<<< HEAD
       api.get("/tracks/recommended?limit=12"),
     ])
       .then(([tracksRes, genresRes, recRes]) => {
@@ -39,6 +43,15 @@ const Home = () => {
       })
       .finally(() => setLoading(false));
   }, [user]);
+=======
+    ])
+      .then(([tracksRes, genresRes]) => {
+        setTracks(tracksRes.data.tracks);
+        setGenres(genresRes.data);
+      })
+      .finally(() => setLoading(false));
+  }, []);
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
 
   return (
     <div className="page-enter">
@@ -115,6 +128,7 @@ const Home = () => {
           </section>
         )}
 
+<<<<<<< HEAD
         {/* Recommended For You — only shown once we have taste-based picks */}
         {recommendBasis === "genre" && recommended.length > 0 && (
           <section>
@@ -130,6 +144,8 @@ const Home = () => {
           </section>
         )}
 
+=======
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
         {/* Trending / Recommended Tracks */}
         <section>
           <div className="flex items-center justify-between mb-4">

@@ -9,8 +9,11 @@ import ShareButtons from "../components/ShareButtons";
 import TrackCard from "../components/TrackCard";
 import LoadingSpinner from "../components/LoadingSpinner";
 import GenreChip from "../components/GenreChip";
+<<<<<<< HEAD
 import { downloadTrackFile } from "../utils/download";
 import { handleImgError } from "../utils/image";
+=======
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
 
 const formatDuration = (secs) => {
   if (!secs) return "";
@@ -28,7 +31,10 @@ const TrackDetail = () => {
   const [likesCount, setLikesCount] = useState(0);
   const [related, setRelated] = useState([]);
   const [shareOpen, setShareOpen] = useState(false);
+<<<<<<< HEAD
   const [downloading, setDownloading] = useState(false);
+=======
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
 
   useEffect(() => {
     setTrack(null);
@@ -56,6 +62,7 @@ const TrackDetail = () => {
     setTrack((prev) => ({ ...prev, comments: [...prev.comments, comment] }));
   };
 
+<<<<<<< HEAD
   const handleDownload = async () => {
     if (!user) return alert("Log in to download");
     if (downloading) return;
@@ -67,6 +74,15 @@ const TrackDetail = () => {
     } finally {
       setDownloading(false);
     }
+=======
+  const handleDownload = () => {
+    if (!user) return alert("Log in to download");
+    const token = localStorage.getItem("audora_token");
+    window.open(
+      `${import.meta.env.VITE_API_URL || "http://localhost:5004/api"}/tracks/${id}/download`,
+      "_blank"
+    );
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
   };
 
   if (!track) {
@@ -102,7 +118,10 @@ const TrackDetail = () => {
               <img
                 src={track.coverUrl}
                 alt={track.title}
+<<<<<<< HEAD
                 onError={handleImgError}
+=======
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
                 className="w-36 h-36 lg:w-48 lg:h-48 rounded-2xl object-cover shadow-card"
                 style={{ boxShadow: "0 8px 40px rgba(0,0,0,0.6)" }}
               />
@@ -186,6 +205,7 @@ const TrackDetail = () => {
                 <button
                   id="track-download-btn"
                   onClick={handleDownload}
+<<<<<<< HEAD
                   disabled={downloading}
                   className="flex items-center gap-1.5 px-4 py-2.5 rounded-full border border-white/20 text-audora-muted hover:border-audora-green hover:text-audora-green transition-all duration-200 font-medium hover:scale-105 disabled:opacity-50"
                   title="Download"
@@ -198,6 +218,15 @@ const TrackDetail = () => {
                     </svg>
                   )}
                   {downloading ? "Downloading..." : "Download"}
+=======
+                  className="flex items-center gap-1.5 px-4 py-2.5 rounded-full border border-white/20 text-audora-muted hover:border-audora-green hover:text-audora-green transition-all duration-200 font-medium hover:scale-105"
+                  title="Download"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                  </svg>
+                  Download
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
                 </button>
 
                 {/* Share toggle */}
@@ -225,8 +254,12 @@ const TrackDetail = () => {
       <div className="px-6 pb-8 max-w-4xl space-y-8">
         {/* Comments */}
         <CommentSection
+<<<<<<< HEAD
           targetId={id}
           type="track"
+=======
+          trackId={id}
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
           comments={track.comments}
           onCommentAdded={handleCommentAdded}
         />

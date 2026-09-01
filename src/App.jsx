@@ -18,12 +18,20 @@ import Genre from "./pages/Genre";
 
 const App = () => {
   return (
+<<<<<<< HEAD
     <div className="h-screen flex flex-col bg-audora-bg text-audora-text overflow-hidden">
+=======
+    <div className="min-h-screen flex flex-col bg-audora-bg text-audora-text">
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
       {/* Mobile top navbar */}
       <Navbar />
 
       {/* Body: sidebar + main content */}
+<<<<<<< HEAD
       <div className="flex flex-1 min-h-0">
+=======
+      <div className="flex flex-1 overflow-hidden">
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
         <Sidebar />
 
         <main className="flex-1 overflow-y-auto pb-36 lg:pb-28 min-h-0">

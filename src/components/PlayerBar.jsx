@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { usePlayer, PLAYBACK_RATES } from "../context/PlayerContext";
@@ -5,6 +6,13 @@ import { useAuth } from "../context/AuthContext";
 import api from "../api/axios";
 import { downloadTrackFile } from "../utils/download";
 import { handleImgError } from "../utils/image";
+=======
+import React, { useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { usePlayer } from "../context/PlayerContext";
+import { useAuth } from "../context/AuthContext";
+import api from "../api/axios";
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
 
 const formatTime = (secs) => {
   if (!secs || Number.isNaN(secs)) return "0:00";
@@ -15,8 +23,13 @@ const formatTime = (secs) => {
 
 const PlayerBar = () => {
   const {
+<<<<<<< HEAD
     currentTrack, isPlaying, progress, duration, volume, playbackRate, shuffle, repeat,
     togglePlay, playNext, playPrev, seek, setVolume, setPlaybackRate, setShuffle, setRepeat,
+=======
+    currentTrack, isPlaying, progress, duration, volume, shuffle, repeat,
+    togglePlay, playNext, playPrev, seek, setVolume, setShuffle, setRepeat,
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
   } = usePlayer();
   const { user } = useAuth();
 
@@ -37,6 +50,7 @@ const PlayerBar = () => {
     }
   }, [volume]);
 
+<<<<<<< HEAD
   const [downloading, setDownloading] = useState(false);
   const [showSpeedMenu, setShowSpeedMenu] = useState(false);
 
@@ -51,6 +65,15 @@ const PlayerBar = () => {
     } finally {
       setDownloading(false);
     }
+=======
+  const handleDownload = () => {
+    if (!user) return alert("Log in to download tracks");
+    const token = localStorage.getItem("audora_token");
+    window.open(
+      `${import.meta.env.VITE_API_URL || "http://localhost:5004/api"}/tracks/${currentTrack._id}/download?token=${token}`,
+      "_blank"
+    );
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
   };
 
   if (!currentTrack) return null;
@@ -82,7 +105,10 @@ const PlayerBar = () => {
             <img
               src={currentTrack.coverUrl || "https://picsum.photos/seed/default/100"}
               alt={currentTrack.title}
+<<<<<<< HEAD
               onError={handleImgError}
+=======
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
               className={`w-11 h-11 lg:w-13 lg:h-13 rounded-xl object-cover ${isPlaying ? "vinyl-playing" : ""}`}
               style={{ borderRadius: "50%" }}
             />
@@ -200,6 +226,7 @@ const PlayerBar = () => {
             </div>
           )}
 
+<<<<<<< HEAD
           {/* Playback speed */}
           <div className="relative hidden md:block">
             <button
@@ -231,11 +258,14 @@ const PlayerBar = () => {
             )}
           </div>
 
+=======
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
           {/* Download */}
           {user && (
             <button
               id="player-download-btn"
               onClick={handleDownload}
+<<<<<<< HEAD
               disabled={downloading}
               title="Download"
               className="text-audora-dim hover:text-audora-green transition-all duration-200 hover:scale-110 disabled:opacity-40"
@@ -247,6 +277,14 @@ const PlayerBar = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                 </svg>
               )}
+=======
+              title="Download"
+              className="text-audora-dim hover:text-audora-green transition-all duration-200 hover:scale-110"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
             </button>
           )}
 

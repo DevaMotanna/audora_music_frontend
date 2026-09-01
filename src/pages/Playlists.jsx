@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../api/axios";
 import LoadingSpinner from "../components/LoadingSpinner";
+<<<<<<< HEAD
 import { handleImgError } from "../utils/image";
+=======
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
 
 const Playlists = () => {
   const [playlists, setPlaylists] = useState([]);
@@ -10,7 +13,10 @@ const Playlists = () => {
   const [showModal, setShowModal] = useState(false);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+<<<<<<< HEAD
   const [isPublic, setIsPublic] = useState(true);
+=======
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
   const [creating, setCreating] = useState(false);
 
   const load = () => {
@@ -27,10 +33,16 @@ const Playlists = () => {
     if (!name.trim()) return;
     setCreating(true);
     try {
+<<<<<<< HEAD
       await api.post("/playlists", { name: name.trim(), description: description.trim(), isPublic });
       setName("");
       setDescription("");
       setIsPublic(true);
+=======
+      await api.post("/playlists", { name: name.trim(), description: description.trim() });
+      setName("");
+      setDescription("");
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
       setShowModal(false);
       load();
     } finally {
@@ -106,7 +118,10 @@ const Playlists = () => {
                         key={i}
                         src={t.coverUrl || `https://picsum.photos/seed/${t._id}/200`}
                         alt=""
+<<<<<<< HEAD
                         onError={handleImgError}
+=======
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
                         className="w-full h-full object-cover"
                       />
                     ))}
@@ -141,6 +156,7 @@ const Playlists = () => {
                 </div>
               </div>
 
+<<<<<<< HEAD
               <p className="font-semibold text-white truncate group-hover:text-audora-accentLight transition-colors flex items-center gap-1.5">
                 {p.name}
                 {!p.isPublic && <span title="Private playlist" className="text-audora-dim text-xs">🔒</span>}
@@ -148,6 +164,13 @@ const Playlists = () => {
               <p className="text-xs text-audora-muted mt-0.5">
                 {p.tracks.length} tracks{formatDuration(p.tracks) && ` • ${formatDuration(p.tracks)}`}
                 {typeof p.likes?.length === "number" && p.likes.length > 0 && ` • ${p.likes.length} likes`}
+=======
+              <p className="font-semibold text-white truncate group-hover:text-audora-accentLight transition-colors">
+                {p.name}
+              </p>
+              <p className="text-xs text-audora-muted mt-0.5">
+                {p.tracks.length} tracks{formatDuration(p.tracks) && ` • ${formatDuration(p.tracks)}`}
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
               </p>
 
               {/* Delete button */}
@@ -207,6 +230,7 @@ const Playlists = () => {
                   className="input-field resize-none"
                 />
               </div>
+<<<<<<< HEAD
               <label className="flex items-center gap-2 text-sm text-audora-muted cursor-pointer select-none">
                 <input
                   id="playlist-public-checkbox"
@@ -217,6 +241,8 @@ const Playlists = () => {
                 />
                 Public — others can view, like, and comment on this playlist
               </label>
+=======
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
               <div className="flex gap-3 pt-2">
                 <button
                   type="button"

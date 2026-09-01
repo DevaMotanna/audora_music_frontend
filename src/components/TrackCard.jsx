@@ -4,7 +4,10 @@ import { usePlayer } from "../context/PlayerContext";
 import { useAuth } from "../context/AuthContext";
 import api from "../api/axios";
 import GenreChip from "./GenreChip";
+<<<<<<< HEAD
 import { handleImgError } from "../utils/image";
+=======
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
 
 const formatDuration = (secs) => {
   if (!secs) return "";
@@ -48,7 +51,10 @@ const TrackCard = ({ track, list }) => {
         <img
           src={track.coverUrl || `https://picsum.photos/seed/${track._id}/400`}
           alt={track.title}
+<<<<<<< HEAD
           onError={handleImgError}
+=======
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
           className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 ${active && isPlaying ? "" : ""}`}
         />
         {/* Overlay on hover */}

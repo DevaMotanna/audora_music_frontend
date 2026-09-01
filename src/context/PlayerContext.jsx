@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 import React, { createContext, useContext, useState, useRef, useEffect, useCallback } from "react";
 import { Howl } from "howler";
+=======
+import React, { createContext, useContext, useState, useRef, useEffect } from "react";
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
 
 const PlayerContext = createContext(null);
 
@@ -19,6 +23,7 @@ const saveRecentToStorage = (tracks) => {
   } catch {}
 };
 
+<<<<<<< HEAD
 // Available playback speeds — the "customizable playback settings" Howler enables.
 export const PLAYBACK_RATES = [0.5, 0.75, 1, 1.25, 1.5, 2];
 
@@ -26,6 +31,10 @@ export const PlayerProvider = ({ children }) => {
   const howlRef = useRef(null);
   const rafRef = useRef(null);
 
+=======
+export const PlayerProvider = ({ children }) => {
+  const audioRef = useRef(new Audio());
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
   const [queue, setQueue] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(-1);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -34,15 +43,19 @@ export const PlayerProvider = ({ children }) => {
   const [volume, setVolume] = useState(() => {
     try { return Number(localStorage.getItem("audora_volume") ?? 1); } catch { return 1; }
   });
+<<<<<<< HEAD
   const [playbackRate, setPlaybackRate] = useState(() => {
     try { return Number(localStorage.getItem("audora_rate") ?? 1); } catch { return 1; }
   });
+=======
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
   const [shuffle, setShuffle] = useState(false);
   const [repeat, setRepeat] = useState(false);
   const [recentlyPlayed, setRecentlyPlayed] = useState(loadRecentFromStorage);
 
   const currentTrack = currentIndex >= 0 ? queue[currentIndex] : null;
 
+<<<<<<< HEAD
   // Refs mirror state so Howler's callbacks (registered once per track) always
   // see fresh values instead of the values captured when the Howl was created.
   const repeatRef = useRef(repeat);
@@ -70,6 +83,48 @@ export const PlayerProvider = ({ children }) => {
     };
     rafRef.current = requestAnimationFrame(tick);
   };
+=======
+  // Audio event listeners
+  useEffect(() => {
+    const audio = audioRef.current;
+    const onTimeUpdate = () => setProgress(audio.currentTime);
+    const onLoadedMetadata = () => setDuration(audio.duration || 0);
+    const onEnded = () => handleEnded();
+
+    audio.addEventListener("timeupdate", onTimeUpdate);
+    audio.addEventListener("loadedmetadata", onLoadedMetadata);
+    audio.addEventListener("ended", onEnded);
+
+    return () => {
+      audio.removeEventListener("timeupdate", onTimeUpdate);
+      audio.removeEventListener("loadedmetadata", onLoadedMetadata);
+      audio.removeEventListener("ended", onEnded);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [queue, currentIndex, repeat, shuffle]);
+
+  // Load and play when track changes
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!currentTrack) return;
+    if (audio.src !== currentTrack.audioUrl) {
+      audio.src = currentTrack.audioUrl;
+      setProgress(0);
+    }
+    if (isPlaying) {
+      audio.play().catch(() => {});
+    }
+    // Track recently played
+    addToRecent(currentTrack);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentTrack]);
+
+  // Volume persistence
+  useEffect(() => {
+    audioRef.current.volume = volume;
+    try { localStorage.setItem("audora_volume", String(volume)); } catch {}
+  }, [volume]);
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
 
   const addToRecent = (track) => {
     setRecentlyPlayed((prev) => {
@@ -80,6 +135,7 @@ export const PlayerProvider = ({ children }) => {
     });
   };
 
+<<<<<<< HEAD
   const playNext = useCallback(() => {
     const q = queueRef.current;
     if (q.length === 0) return;
@@ -167,6 +223,12 @@ export const PlayerProvider = ({ children }) => {
   const playTrackAt = (list, index) => {
     setQueue(list);
     setCurrentIndex(index);
+=======
+  const playTrackAt = (list, index) => {
+    setQueue(list);
+    setCurrentIndex(index);
+    setIsPlaying(true);
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
   };
 
   const playTrack = (track, contextList = null) => {
@@ -176,6 +238,7 @@ export const PlayerProvider = ({ children }) => {
   };
 
   const togglePlay = () => {
+<<<<<<< HEAD
     const howl = howlRef.current;
     if (!howl) return;
     if (howl.playing()) {
@@ -202,12 +265,67 @@ export const PlayerProvider = ({ children }) => {
   const seek = (time) => {
     const howl = howlRef.current;
     if (howl) howl.seek(time);
+=======
+    const audio = audioRef.current;
+    if (!currentTrack) return;
+    if (isPlaying) {
+      audio.pause();
+      setIsPlaying(false);
+    } else {
+      audio.play().catch(() => {});
+      setIsPlaying(true);
+    }
+  };
+
+  const handleEnded = () => {
+    if (repeat) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play().catch(() => {});
+      return;
+    }
+    playNext();
+  };
+
+  const playNext = () => {
+    if (queue.length === 0) return;
+    let nextIndex;
+    if (shuffle) {
+      const remaining = queue.map((_, i) => i).filter((i) => i !== currentIndex);
+      nextIndex = remaining.length > 0
+        ? remaining[Math.floor(Math.random() * remaining.length)]
+        : currentIndex;
+    } else {
+      nextIndex = (currentIndex + 1) % queue.length;
+    }
+    setCurrentIndex(nextIndex);
+    setIsPlaying(true);
+  };
+
+  const playPrev = () => {
+    if (queue.length === 0) return;
+    // If more than 3 seconds in, restart current track
+    if (audioRef.current.currentTime > 3) {
+      audioRef.current.currentTime = 0;
+      return;
+    }
+    const prevIndex = (currentIndex - 1 + queue.length) % queue.length;
+    setCurrentIndex(prevIndex);
+    setIsPlaying(true);
+  };
+
+  const seek = (time) => {
+    audioRef.current.currentTime = time;
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
     setProgress(time);
   };
 
   const playQueue = (list, startIndex = 0) => {
     setQueue(list);
     setCurrentIndex(startIndex);
+<<<<<<< HEAD
+=======
+    setIsPlaying(true);
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
   };
 
   return (
@@ -218,7 +336,10 @@ export const PlayerProvider = ({ children }) => {
         progress,
         duration,
         volume,
+<<<<<<< HEAD
         playbackRate,
+=======
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
         shuffle,
         repeat,
         queue,
@@ -230,7 +351,10 @@ export const PlayerProvider = ({ children }) => {
         playPrev,
         seek,
         setVolume,
+<<<<<<< HEAD
         setPlaybackRate,
+=======
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
         setShuffle,
         setRepeat,
       }}

@@ -1,5 +1,6 @@
 import React from "react";
 
+<<<<<<< HEAD
 // Backwards compatible: pass `track` exactly as before for track pages.
 // New: pass `playlist` for playlist pages. Exactly one of the two is used.
 const ShareButtons = ({ track, playlist }) => {
@@ -13,6 +14,11 @@ const ShareButtons = ({ track, playlist }) => {
   const text = isPlaylist
     ? `🎧 Check out my "${item.name}" playlist on Audora!`
     : `🎵 Check out "${item.title}" by ${item.artist} on Audora!`;
+=======
+const ShareButtons = ({ track }) => {
+  const url = `${window.location.origin}/track/${track._id}`;
+  const text = `🎵 Check out "${track.title}" by ${track.artist} on Audora!`;
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
 
   const share = (platform) => {
     const encoded = encodeURIComponent(url);
@@ -44,7 +50,11 @@ const ShareButtons = ({ track, playlist }) => {
   const nativeShare = async () => {
     if (navigator.share) {
       try {
+<<<<<<< HEAD
         await navigator.share({ title: `${item.title || item.name} — Audora`, text, url });
+=======
+        await navigator.share({ title: `${track.title} — Audora`, text, url });
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
       } catch {}
     }
   };

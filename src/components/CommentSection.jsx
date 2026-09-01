@@ -16,22 +16,33 @@ const formatRelTime = (dateStr) => {
   }
 };
 
+<<<<<<< HEAD
 // type: "track" | "playlist" — determines which endpoint comments post to.
 const CommentSection = ({ targetId, type = "track", comments: initial, onCommentAdded }) => {
+=======
+const CommentSection = ({ trackId, comments: initial, onCommentAdded }) => {
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
   const { user } = useAuth();
   const [text, setText] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
 
+<<<<<<< HEAD
   const endpoint = `/${type}s/${targetId}/comments`;
 
+=======
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!text.trim()) return;
     setError("");
     setSubmitting(true);
     try {
+<<<<<<< HEAD
       const res = await api.post(endpoint, { text });
+=======
+      const res = await api.post(`/tracks/${trackId}/comments`, { text });
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
       onCommentAdded(res.data);
       setText("");
     } catch (err) {

@@ -3,11 +3,15 @@ import { useParams, Link } from "react-router-dom";
 import api from "../api/axios";
 import TrackListItem from "../components/TrackListItem";
 import LoadingSpinner from "../components/LoadingSpinner";
+<<<<<<< HEAD
 import CommentSection from "../components/CommentSection";
 import ShareButtons from "../components/ShareButtons";
 import { usePlayer } from "../context/PlayerContext";
 import { useAuth } from "../context/AuthContext";
 import { handleImgError } from "../utils/image";
+=======
+import { usePlayer } from "../context/PlayerContext";
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
 
 const formatTotalDuration = (tracks) => {
   const total = tracks.reduce((s, t) => s + (t.duration || 0), 0);
@@ -20,20 +24,27 @@ const formatTotalDuration = (tracks) => {
 
 const PlaylistDetail = () => {
   const { id } = useParams();
+<<<<<<< HEAD
   const { user } = useAuth();
+=======
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
   const { playQueue } = usePlayer();
   const [playlist, setPlaylist] = useState(null);
   const [editingName, setEditingName] = useState(false);
   const [nameVal, setNameVal] = useState("");
   const [saving, setSaving] = useState(false);
+<<<<<<< HEAD
   const [liked, setLiked] = useState(false);
   const [likesCount, setLikesCount] = useState(0);
   const [togglingVisibility, setTogglingVisibility] = useState(false);
+=======
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
 
   const load = () => {
     api.get(`/playlists/${id}`).then((res) => {
       setPlaylist(res.data);
       setNameVal(res.data.name);
+<<<<<<< HEAD
       setLikesCount(res.data.likes?.length || 0);
       if (user) setLiked((res.data.likes || []).includes(user._id));
     });
@@ -42,6 +53,12 @@ const PlaylistDetail = () => {
   useEffect(() => { load(); }, [id, user]); // eslint-disable-line
 
   const isOwner = user && playlist && playlist.owner?._id === user._id;
+=======
+    });
+  };
+
+  useEffect(() => { load(); }, [id]); // eslint-disable-line
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
 
   const handleRemove = async (trackId) => {
     await api.delete(`/playlists/${id}/tracks/${trackId}`);
@@ -61,6 +78,7 @@ const PlaylistDetail = () => {
     }
   };
 
+<<<<<<< HEAD
   const handleLike = async () => {
     if (!user) return alert("Log in to like playlists");
     const res = await api.put(`/playlists/${id}/like`);
@@ -83,6 +101,8 @@ const PlaylistDetail = () => {
     }
   };
 
+=======
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
   if (!playlist) {
     return (
       <div className="flex justify-center items-center min-h-96">
@@ -119,7 +139,11 @@ const PlaylistDetail = () => {
               {tracks.length > 0 ? (
                 <div className="grid grid-cols-2 h-full">
                   {tracks.slice(0, 4).map((t, i) => (
+<<<<<<< HEAD
                     <img key={i} src={t.coverUrl} alt="" onError={handleImgError} className="w-full h-full object-cover" />
+=======
+                    <img key={i} src={t.coverUrl} alt="" className="w-full h-full object-cover" />
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
                   ))}
                   {tracks.length < 4 && [...Array(4 - tracks.length)].map((_, i) => (
                     <div key={i} className="bg-audora-surfaceHigh" />
@@ -168,6 +192,7 @@ const PlaylistDetail = () => {
               {playlist.description && (
                 <p className="text-audora-muted text-sm mb-2">{playlist.description}</p>
               )}
+<<<<<<< HEAD
               <div className="flex items-center gap-2 text-sm text-audora-dim mb-5 flex-wrap">
                 <span>
                   {tracks.length} tracks
@@ -195,6 +220,15 @@ const PlaylistDetail = () => {
 
               <div className="flex items-center gap-3 flex-wrap">
                 {tracks.length > 0 && (
+=======
+              <p className="text-sm text-audora-dim mb-5">
+                {tracks.length} tracks
+                {formatTotalDuration(tracks) && ` • ${formatTotalDuration(tracks)}`}
+              </p>
+
+              {tracks.length > 0 && (
+                <div className="flex items-center gap-3">
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
                   <button
                     id="playlist-play-all-btn"
                     onClick={() => playQueue(tracks, 0)}
@@ -205,6 +239,7 @@ const PlaylistDetail = () => {
                     </svg>
                     Play All
                   </button>
+<<<<<<< HEAD
                 )}
 
                 {/* Like */}
@@ -228,6 +263,13 @@ const PlaylistDetail = () => {
               <div className="mt-4">
                 <ShareButtons playlist={playlist} />
               </div>
+=======
+                  <Link to="/playlists" className="btn-secondary text-sm">
+                    ← Back to Library
+                  </Link>
+                </div>
+              )}
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
             </div>
           </div>
         </div>
@@ -269,6 +311,7 @@ const PlaylistDetail = () => {
             ))}
           </div>
         )}
+<<<<<<< HEAD
 
         {/* Comments */}
         <CommentSection
@@ -277,6 +320,8 @@ const PlaylistDetail = () => {
           comments={playlist.comments || []}
           onCommentAdded={handleCommentAdded}
         />
+=======
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
       </div>
     </div>
   );

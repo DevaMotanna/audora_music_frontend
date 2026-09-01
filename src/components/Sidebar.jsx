@@ -2,7 +2,10 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { usePlayer } from "../context/PlayerContext";
+<<<<<<< HEAD
 import { handleImgError } from "../utils/image";
+=======
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
 
 const NAV_ITEMS = [
   { to: "/", icon: HomeIcon, label: "Home" },
@@ -53,7 +56,11 @@ const Sidebar = () => {
   const location = useLocation();
 
   return (
+<<<<<<< HEAD
     <aside className="hidden lg:flex flex-col w-64 flex-shrink-0 h-full sticky top-0 glass border-r border-audora-border overflow-y-auto">
+=======
+    <aside className="hidden lg:flex flex-col w-64 flex-shrink-0 h-screen sticky top-0 glass border-r border-audora-border">
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
       {/* Logo */}
       <div className="px-6 pt-6 pb-4">
         <Link to="/" className="flex items-center gap-2 group">
@@ -91,7 +98,10 @@ const Sidebar = () => {
               <img
                 src={currentTrack.coverUrl}
                 alt={currentTrack.title}
+<<<<<<< HEAD
                 onError={handleImgError}
+=======
+>>>>>>> 570b2c07dec63fb8d4465ce7f8b48bd8b9216b46
                 className="w-10 h-10 rounded-lg object-cover flex-shrink-0"
               />
               <div className="min-w-0">
